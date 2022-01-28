@@ -6,9 +6,14 @@ use App\Repository\ArticlesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass=ArticlesRepository::class)
+ * @Vich\Uploadable
  */
 class Articles
 {
@@ -25,7 +30,8 @@ class Articles
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(length=128, unique=true)
+     * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
 
@@ -35,19 +41,32 @@ class Articles
     private $content;
 
     /**
+     * @var \Datetime $created_at
+     * 
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
     /**
+     * @var \Datetime $updated_at
+     * 
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $featured_image;
+
+    /**
+     * @Vich\UploadableField(mapping="featured_images", fileNameProperty="featured_image")
+     * @var File
+     */
+    private $imageFile; 
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="articles")
@@ -99,13 +118,6 @@ class Articles
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
@@ -123,35 +135,35 @@ class Articles
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function getFeaturedImage(): ?string
+    public function getFeaturedImage()
     {
         return $this->featured_image;
     }
 
-    public function setFeaturedImage(string $featured_image): self
+    public function setFeaturedImage(string $featured_image)
     {
         $this->featured_image = $featured_image;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+    
+        if ($image) {
+            $this->updated_at = new \DateTime('now');
+        }
+    }
+    
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     public function getUsers(): ?Users

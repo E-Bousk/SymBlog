@@ -47,6 +47,10 @@ class Users implements UserInterface
     {
         $this->articles = new ArrayCollection();
     }
+    
+    public function __tostring(){
+        return $this->email;
+    }
 
     public function getId(): ?int
     {

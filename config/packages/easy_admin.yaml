@@ -1,0 +1,77 @@
+easy_admin:
+    site_name: 'Gestion du blog'
+    user:
+        display_name: true
+        display_avatar: false
+    design:
+        # Ces lignes sont utiles pour KEditor
+        form_theme:
+          - "@EasyAdmin/form/bootstrap_4.html.twig"
+          - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+        # Ces lignes définissent le menu
+        menu:
+          - { label: 'Articles' }
+          - { entity: 'Articles', label: 'Articles', icon: 'book' }
+          - { entity: 'Categories', label: 'Catégories', icon: 'tag' }
+          - { entity: 'Keywords', label: 'Mots-Clés', icon: 'tag' }
+        #   - { label: 'Utilisateurs' }
+        #   - { entity: 'Users', label: 'Utilisateurs', icon: 'user' }
+    formats:
+        datetime: 'd/m/Y à H:i'
+    entities:
+        Articles:
+            class: App\Entity\Articles
+            list:
+                fields:
+                    - id
+                    - { property: 'title', label: 'Titre' }
+                    - { property: 'featured_image', label: 'Image', type: 'image', base_path: '%app.path.featured_images%' }
+                    - { property: 'created_at', label: 'Créé le' }
+                    - { property: 'categories', label: 'Catégories', type: 'array' }
+                    - { property: 'keywords', label: 'Mots-Clés', type: 'array' }
+                sort: ['created_at', 'desc']
+            form:
+                fields:
+                    - { property: 'title', label: 'Titre' }
+                    # Affichage de l'éditeur WYSIWYG
+                    - { property: 'content', label: 'Contenu', type: 'fos_ckeditor', type_options: { config_name: 'main_config' } }
+                    # Affichage du champ d'ajout d'image
+                    - { property: 'imageFile', label: 'Image', type: 'vich_image' }
+                    - users
+                    # Les catégories et mots-clés peuvent s'afficher avec une sélection multiple
+                    - { property: 'categories', label: 'Catégories', type: 'entity', type_options: { class: 'App\Entity\Categories', multiple: true, by_reference: false, attr: {data-widget: 'select2' } } }
+                    - { property: 'keywords', label: 'Mots-Clés', type: 'entity', type_options: { class: 'App\Entity\Keywords', multiple: true, by_reference: false, attr: {data-widget: 'select2' } } }
+        Categories:
+            class: App\Entity\Categories
+            label: 'Catégories'
+            list:
+                fields:
+                    - { property: 'name', label: 'Catégories'}
+                    - articles
+                sort: ['name', 'asc']
+            form:
+                fields:
+                    - { property: 'name', label: 'Catégories'}
+        Keywords:
+            class: App\Entity\Keywords
+            label: 'Mots-Clés'
+            list:
+                fields:
+                    - { property: 'keyword', label: 'Mots-Clés'}
+                    - articles
+                sort: ['keyword', 'asc']
+            form:
+                fields:
+                    - { property: 'keyword', label: 'Mots-Clés' }
+        # Users:
+        #     class: App\Entity\Users
+        #     label: 'Utilisateurs'
+        #     list:
+        #         fields:
+        #             - id
+        #             - email
+        #             - { property: 'roles', label: 'Rôles', type: json_array }
+        #     form:
+        #         fields:
+        #             - email
+        #             - { property: 'roles', label: 'Rôles', type: choice, type_options: { expanded: true, multiple: true, choices: {'Utilisateur':'ROLE_USER', 'Administrateur':'ROLE_ADMIN' } } }
