@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    {% for article in articles %}
+        <h1><a href="{{ path('article', { slug: article.slug }) }}">{{ article.title }}</a></h1>      
+        <p>Publié le {{ article.createdAt | date('d/m/Y à H\\hi') }}</p>
+        <p>
+            {% for categorie in article.categories %}
+                {{ categorie.name }}
+            {% endfor %}
+        </p>
+        <div class="">{{ article.content | raw }}</div>        
+    {% endfor %}
+{% endblock %}

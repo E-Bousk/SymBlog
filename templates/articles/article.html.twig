@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ article.title }}</h1>      
+    <p>Publié le {{ article.createdAt | date('d/m/Y à H\\hi') }}</p>
+    <p>
+        {% for categorie in article.categories %}
+            {{ categorie.name }}
+        {% endfor %}
+    </p>
+    <div class="">{{ article.content | raw }}</div>       
+    <h2>Commentaires ({{ article.comments | length }})</h2>
+    {% for comment in article.comments %}
+        <p>Publié par {{ comment.nickname }}</p>
+        <div>{{ comment.content }}</div>
+    {% else %}
+        <p>Il n'y a pas encore de commentaire</p>
+    {% endfor %}
+{% endblock %}
