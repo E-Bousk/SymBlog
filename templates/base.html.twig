@@ -20,6 +20,8 @@
     </head>
     <body>    
         {{ include("partials/navbar.html.twig") }}
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>
