@@ -145,7 +145,7 @@ class Articles
         return $this->featured_image;
     }
 
-    public function setFeaturedImage(string $featured_image)
+    public function setFeaturedImage(?string $featured_image)
     {
         $this->featured_image = $featured_image;
 
