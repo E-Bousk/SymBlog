@@ -88,19 +88,6 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
-    "easycorp/easyadmin-bundle": {
-        "version": "2.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.0",
-            "ref": "0a51040a43c6f2172a3a0135cd15daf2043905d7"
-        },
-        "files": [
-            "./config/packages/easy_admin.yaml",
-            "./config/routes/easy_admin.yaml"
-        ]
-    },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
@@ -145,9 +132,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.13.0"
-    },
-    "pagerfanta/pagerfanta": {
-        "version": "v2.7.2"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -475,9 +459,6 @@
         "version": "v1.24.0"
     },
     "symfony/polyfill-php73": {
-        "version": "v1.24.0"
-    },
-    "symfony/polyfill-php80": {
         "version": "v1.24.0"
     },
     "symfony/process": {
