@@ -16,6 +16,9 @@
                 {{ categorie.name }}
             {% endfor %}
         </p>
+        <p>
+            <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('echelle') }}" alt="{{ article.title }}">
+        </p>
         <div class="">{{ article.content | raw }}</div>        
     {% endfor %}
 {% endblock %}

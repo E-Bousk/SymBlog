@@ -10,6 +10,9 @@
             {{ categorie.name }}
         {% endfor %}
     </p>
+    <p>
+        <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('article') }}" alt="{{ article.title }}">
+    </p>
     <div class="">{{ article.content | raw }}</div>       
     <h2>Commentaires ({{ article.comments | length }})</h2>
     {% for comment in article.comments %}
