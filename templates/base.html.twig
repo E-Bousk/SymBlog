@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue !{% endblock %}</title>
+        <title>{% block title %}{% trans %}Welcome !{% endtrans %}{% endblock %}</title>
 
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
         {% block stylesheets %}

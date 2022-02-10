@@ -41,7 +41,7 @@ class ArticlesController extends AbstractController
             $article->setUsers($this->getUser());
 
             $this->getDoctrine()->getManager()->persist($article);
-            $this->getDoctrine()->getManager()->flush();;
+            $this->getDoctrine()->getManager()->flush();
             
             $this->addFlash('message', 'Votre article a bien été publié');
             return $this->redirectToRoute('home');

@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier l'utilisateur{% endblock %}
+{% block title %}{% trans %}Edit user{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Modifier l'utilisateur</h1>
+    <h1>{% trans %}Edit user{% endtrans %}</h1>
     {{ form(userForm) }}
 {% endblock %}

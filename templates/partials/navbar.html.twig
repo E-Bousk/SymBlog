@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Titre du site</a>
+  <a class="navbar-brand" href="#">{% trans %}Site title{% endtrans %}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,35 +7,42 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ path('home') }}">{% trans %}Homepage{% endtrans %}<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">{% trans %}Link{% endtrans %}</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+          {% trans %}Dropdown{% endtrans %}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">{% trans %}Action{% endtrans %}</a>
+          <a class="dropdown-item" href="#">{% trans %}Another action{% endtrans %}</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">{% trans %}Something else here{% endtrans %}</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{% trans %}Disabled{% endtrans %}</a>
       </li>
       {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item">
-          <a class="nav-link " href="{{ path('admin_index') }}" tabindex="-1" aria-disabled="true">Admin</a>
+          <a class="nav-link " href="{{ path('admin_index') }}" tabindex="-1" aria-disabled="true">{% trans %}Admin{% endtrans %}</a>
         </li>
       {% endif %}
       {% if is_granted('ROLE_USER') %}
         <li class="nav-item">
-          <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Profil</a>
+          <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">{% trans %}Profile{% endtrans %}</a>
         </li>
       {% endif %}
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% for locale in locales if locale != app.request.locale %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('change_locale', { locale: locale }) }}"><img class="flag float-right" src="{{ asset('assets/img/lang_' ~ locale ~ '.png') }}" alt="{{ locale }} flag"></a>
+        </li>
+      {% endfor %}
     </ul>
   </div>
 </nav>

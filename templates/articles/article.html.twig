@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>{{ article.title }}</h1>      
-    <p>Publié le {{ article.createdAt | date('d/m/Y à H\\hi') }}</p>
+    <p>{% trans %}Published on{% endtrans %} {{ article.createdAt | date('d/m/Y à H\\hi') }}</p>
     <p>
         {% for categorie in article.categories %}
             {{ categorie.name }}
@@ -14,14 +14,14 @@
         <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('article') }}" alt="{{ article.title }}">
     </p>
     <div class="">{{ article.content | raw }}</div>       
-    <h2>Commentaires ({{ article.comments | length }})</h2>
+    <h2>{% trans %}Comments{% endtrans %} ({{ article.comments | length }})</h2>
     {% for comment in article.comments %}
-        <p>Publié par {{ comment.nickname }}</p>
+        <p>{% trans %}Published by{% endtrans %} {{ comment.nickname }}</p>
         <div>{{ comment.content }}</div>
     {% else %}
-        <p>Il n'y a pas encore de commentaire</p>
+        <p>{% trans %}There is no comments yet{% endtrans %}</p>
     {% endfor %}
 
-    <h2>Ajouter un commentaire</h2>
+    <h2>{% trans %}Add a comment{% endtrans %}</h2>
         {{ form(commentForm) }}
 {% endblock %}

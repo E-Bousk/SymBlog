@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}{% trans %}Users list{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
+    <h1>{% trans %}Users list{% endtrans %}</h1>
     <table class="table">
         <thead>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Rôles</th>
-            <th>Articles</th>
-            <th>Action</th>
+            <th>{% trans %}ID{% endtrans %}</th>
+            <th>{% trans %}Email{% endtrans %}</th>
+            <th>{% trans %}Roles{% endtrans %}</th>
+            <th>{% trans %}Articles{% endtrans %}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
         </thead>
         <tbody>
             {% for user in users %}
@@ -20,22 +20,22 @@
                     <td>
                         {% for role in user.roles %}
                             {% if role is same as("ROLE_USER") %}
-                                Utilisateur                                
+                                {% trans %}User{% endtrans %}                                
                             {% elseif role is same as("ROLE_EDITOR") %}
-                                Éditeur
+                                {% trans %}Editor{% endtrans %}
                             {% elseif role is same as("ROLE_MODO") %}
-                                Modérateur
+                                {% trans %}Moderator{% endtrans %}
                             {% elseif role is same as("ROLE_ADMIN") %}
-                                Administrateur
+                                {% trans %}Administrator{% endtrans %}
                             {% endif %}
                         {% endfor %}
                     </td>
                     <td>{{ user.articles|length }}</td>
-                    <td><a href="{{ path('admin_edit_user', { id: user.id }) }}" class="btn btn-warning">Modifier</a></td>
+                    <td><a href="{{ path('admin_edit_user', { id: user.id }) }}" class="btn btn-warning">{% trans %}Edit{% endtrans %}</a></td>
                 </tr>       
             {% else %}
                 <tr>
-                    <td colspan=5>Il n'y a pas d'utilisateur inscrit</td>
+                    <td colspan=5>{% trans %}There is no registered user{% endtrans %}</td>
                 </tr>
             {% endfor %} 
         </tbody>
