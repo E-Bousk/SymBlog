@@ -4,3 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         locales: '%app.locales%'
+
+    # Pour erreur « There are no registered paths for namespace "KnpPaginator". »
+    paths:
+        '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator

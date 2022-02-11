@@ -6,6 +6,7 @@ use App\Entity\Articles;
 use App\Entity\Comments;
 use App\Form\AddArticleFormType;
 use App\Form\CommentFormType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +18,17 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $articles = $this->getDoctrine()->getRepository(Articles::class)->findAll();
+        $data = $this->getDoctrine()->getRepository(Articles::class)->findBy([],[
+            'created_at' => 'desc'
+        ]);
+
+        $articles = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            3
+        );
 
         return $this->render('articles/index.html.twig', [
             'articles' => $articles
