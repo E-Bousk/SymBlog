@@ -153,6 +153,22 @@
         <source>Sign in</source>
         <target>Connexion</target>
       </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="gc0_oO_" resname="Forgotten password">
+        <source>Forgotten password</source>
+        <target>Mot de passe oublié</target>
+      </trans-unit>
+      <trans-unit id="PdnfREH" resname="New password">
+        <source>New password</source>
+        <target>Nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="QGEau92" resname="Validate">
+        <source>Validate</source>
+        <target>Valider</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
