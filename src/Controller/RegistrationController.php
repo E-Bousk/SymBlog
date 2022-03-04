@@ -6,15 +6,33 @@ use App\Entity\Users;
 use App\Form\RegistrationFormType;
 use App\Repository\UsersRepository;
 use App\Security\UsersAuthenticator;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Notifications\CreationCompteNotification;
+use App\Notifications\ActivationCompteNotification;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
+    /**
+     * @var CreationCompteNotification
+     */
+    private $notifyCreation;
+
+    /**
+     * @var ActivationCompteNotification
+     */
+    private $notifyActivation;
+
+    public function __construct(CreationCompteNotification $notifyCreation, ActivationCompteNotification $notifyActivation)
+    {
+        $this->notifyCreation = $notifyCreation;
+        $this->notifyActivation = $notifyActivation;
+    }
+
     /**
      * @Route("/register", name="app_register")
      */
@@ -22,8 +40,8 @@ class RegistrationController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $userPasswordEncoder,
         GuardAuthenticatorHandler $guardHandler,
-        UsersAuthenticator $authenticator,
-        \Swift_Mailer $mailer
+        UsersAuthenticator $authenticator
+        // \Swift_Mailer $mailer
     ): Response
     {
         $user = new Users();
@@ -45,19 +63,24 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $message = (new \Swift_Message('Activation de compte'))
-                ->setFrom('blog@noreply')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'emails/activation.html.twig', ['token' => $user->getActivationToken()]
-                    ),
-                    'text/html'
-                )
-            ;
+            $this->notifyCreation->notify();
             
-            $mailer->send($message);
+            // $message = (new \Swift_Message('Activation de compte'))
+            //     ->setFrom('blog@noreply')
+            //     ->setTo($user->getEmail())
+            //     ->setBody(
+            //             $this->renderView(
+            //                 'emails/activation.html.twig', ['token' => $user->getActivationToken()]
+            //             ),
+            //             'text/html'
+            //         )
+            //     ;
+            // $mailer->send($message);
 
+            // remplacé par :
+            $this->notifyActivation->notify($user);
+
+                    
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

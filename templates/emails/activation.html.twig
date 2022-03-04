@@ -1,5 +1,16 @@
-<h1>Activation de votre compte</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation de compte</title>
+</head>
+<body>
+    <h1>Activation de votre compte</h1>
 
-<p>Vous avez créé un compte sur notre blog.</p>
-<p>Veuillez cliquer sur le lien suivant pour l'activer</p>
-<p><a href="{{ absolute_url(path('activation', { token: token })) }}">Activer mon compte</a></p>
+    <p>Vous avez créé un compte sur notre blog.</p>
+    <p>Veuillez cliquer sur le lien suivant pour l'activer</p>
+    <p><a href="{{ absolute_url(path('activation', { token: token })) }}">Activer mon compte</a></p>
+</body>
+</html>
