@@ -20,6 +20,9 @@ class ArticlesController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        // Génère une exception pour tester la page 404 personnalisée (voir « error404.html.twig »)
+        // throw $this->createNotFoundException('Page perdue');
+
         $data = $this->getDoctrine()->getRepository(Articles::class)->findBy([],[
             'created_at' => 'desc'
         ]);

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès interdit{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="my-5">Accès interdit (erreur 403)</h1>
+                <p>Vous n'avez la permission de voir cette page</p>
+                <p>Code de l'erreur : {{ status_code }}</p>
+                <p>Message de l'erreur : {{ status_text }}</p>
+                <p><a href="{{ path('home') }}">Retour à la page d'accueil</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
